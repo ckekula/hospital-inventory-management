@@ -1,5 +1,7 @@
 package com.dev.server.auth;
 
+import com.dev.server.email.EmailService;
+import com.dev.server.email.EmailTemplateName;
 import com.dev.server.security.JwtService;
 import com.dev.server.user.*;
 import jakarta.mail.MessagingException;
