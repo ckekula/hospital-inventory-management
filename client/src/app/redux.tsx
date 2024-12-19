@@ -55,15 +55,22 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 /* REDUX STORE */
+/**
+ * Creates and configures the Redux store with persisted reducer and middleware.
+ * @returns {EnhancedStore} The configured Redux store.
+*/
 export const makeStore = () => {
   return configureStore({
+    // Use the persisted reducer to maintain state across sessions
     reducer: persistedReducer,
+    // Configure middleware with serializable checks and API middleware
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
+          // Ignore these actions for the serializable check
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(api.middleware),
+      }).concat(api.middleware), // Add API middleware for handling queries
   });
 };
 
