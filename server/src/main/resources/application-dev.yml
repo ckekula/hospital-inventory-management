@@ -28,14 +28,10 @@ spring:
         connection timeout: 5000
         timeout: 3000
         writetimeout: 5000
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://localhost:9090/realms/hims"
 application:
-  file:
-    uploads:
-      photos-output-path: ./uploads
+  security:
+    jwt:
+      secret-key:
+      expiration: 8640000
 server:
   port: 8088
