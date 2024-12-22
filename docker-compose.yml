@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: hims
+      POSTGRES_DB: hospital-inventory
     volumes:
       - postgres:/data/postgres
     ports:
@@ -20,6 +20,18 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+  keycloak:
+    container_name: keycloak-bsn
+    image: quay.io/keycloak/keycloak:26.0.7
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - spring-demo
+    command:
+      - "start-dev"
 networks:
   spring-demo:
     driver: bridge
