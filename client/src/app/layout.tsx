@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import DashboardWrapper from "./DashboardWrapper";
+import SessionProviderWrapper from "@/utils/sessionProviderWrapper";
 
 export const metadata: Metadata = {
   title: "HIMS",
@@ -68,7 +69,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={interFont.variable}>
-        <DashboardWrapper>{children}</DashboardWrapper>
+        <SessionProviderWrapper>
+          <DashboardWrapper>{children}</DashboardWrapper>
+        </SessionProviderWrapper>
       </body>
     </html>
   );
