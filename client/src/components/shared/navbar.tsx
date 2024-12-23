@@ -5,6 +5,7 @@ import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
 import { Bell, Menu, Moon, Settings, Sun } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import AuthStatus from "../auth/authStatus";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -72,7 +73,8 @@ const Navbar = () => {
               height={50}
               className="rounded-full h-full object-cover"
             /> */}
-            <span className="font-semibold">Username</span>
+            
+            <AuthStatus/>
           </div>
         </div>
         <Link href="/settings">
