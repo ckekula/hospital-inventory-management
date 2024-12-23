@@ -23,9 +23,6 @@ import static jakarta.persistence.FetchType.EAGER;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "user")
-@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue
