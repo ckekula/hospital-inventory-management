@@ -12,6 +12,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { api } from "@/state/api";
 
 const createNoopStorage = () => {
   return {
@@ -40,6 +41,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   global: globalReducer,
+  [api.reducerPath]: api.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -51,7 +53,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(api.middleware),
 });
 
 setupListeners(store.dispatch);

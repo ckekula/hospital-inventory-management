@@ -118,9 +118,9 @@ const Sidebar = () => {
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href="/products"
+          href="/equipment"
           icon={Clipboard}
-          label="Products"
+          label="Equipment"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
@@ -145,7 +145,7 @@ const Sidebar = () => {
 
       {/* FOOTER */}
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
-        <p className="text-center text-xs text-gray-500">&copy; 2024 Edstock</p>
+        <p className="text-center text-xs text-gray-500">&copy; 2024 HIMS</p>
       </div>
     </div>
   );
