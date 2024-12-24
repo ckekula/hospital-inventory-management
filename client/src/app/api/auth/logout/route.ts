@@ -10,7 +10,7 @@ export async function GET() {
     const idToken = await getIdToken();
 
     if (!process.env.NEXTAUTH_URL) {
-        throw new Error('NEXTAUTH_URL environment variable is not set');
+        throw new Error('environment variable is not set');
     }
     // this will log out the user on Keycloak side
     const url = `${process.env.END_SESSION_URL}?id_token_hint=${idToken}&post_logout_redirect_uri=${encodeURIComponent(process.env.NEXTAUTH_URL)}`;
