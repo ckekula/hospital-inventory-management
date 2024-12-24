@@ -31,7 +31,7 @@ public class EquipmentTypeService {
         return repository.findById(id)
                 .map(equipmentType -> {
                     equipmentType.setName(updatedEquipmentType.getName());
-                    equipmentType.setAmount(updatedEquipmentType.getAmount());
+                    equipmentType.setQuantity(updatedEquipmentType.getQuantity());
                     equipmentType.setMinStock(updatedEquipmentType.getMinStock());
                     return repository.save(equipmentType);
                 })

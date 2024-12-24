@@ -12,13 +12,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "equipmentType")
+@Table(name = "equipment_type")
 public class EquipmentType {
     @Id
     @GeneratedValue
     private Integer id;
 
     private String name;
-    private String amount;
-    private String minStock;
+    private int quantity;
+    private int minStock;
 }
