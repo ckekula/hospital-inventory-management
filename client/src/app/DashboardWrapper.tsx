@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 import Navbar from "@/components/shared/navbar";
 import Sidebar from "@/components/shared/sidebar";
 import StoreProvider, { useAppSelector } from "./redux";
@@ -10,16 +10,23 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     (state) => state.global.isSidebarCollapsed
   );
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const { status } = useSession();
 
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDarkMode]);
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    signIn("keycloak");
+    return null;
+  }
 
   return (
     <div

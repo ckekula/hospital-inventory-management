@@ -25,13 +25,14 @@ export default function AuthStatus() {
     }
   }, [session, status]);
 
-
   if (status == "loading") {
     return <div className="my-3">Loading...</div>;
   } else if (session) {
     return (
-      <div className="my-3">
-        Logged in as <span className="text-yellow-100">{session.user?.email}</span>{" "}
+      <div className="my-3 flex flex-row">
+        <div className="mr-3">
+        {session.user?.email}
+        </div>
         <button
           className="bg-blue-900 font-bold text-white py-1 px-2 rounded border border-gray-50"
           onClick={() => {
