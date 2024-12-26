@@ -1,12 +1,12 @@
 "use client";
 
 import Header from "@/components/shared/header";
-import { useGetEquipmentTypesQuery } from "@/state/api";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {useGetEquipmentTypesQuery} from "@/state/api";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
 
 const columns: GridColDef[] = [
-  { field: "typeId", headerName: "ID", width: 90 },
-  { field: "type", headerName: "Equipment Type", width: 200 },
+  {field: "id", headerName: "ID", width: 90},
+  {field: "name", headerName: "Equipment Type", width: 200},
   {
     field: "quantity",
     headerName: "Quantity",
@@ -22,7 +22,9 @@ const columns: GridColDef[] = [
 ];
 
 const Inventory = () => {
-  const { data: equipmentType, isError, isLoading } = useGetEquipmentTypesQuery();
+  const {data: equipmentType, isError, isLoading} = useGetEquipmentTypesQuery();
+
+  console.log(equipmentType);
 
   if (isLoading) {
     return <div className="py-4">Loading...</div>;
@@ -42,7 +44,7 @@ const Inventory = () => {
       <DataGrid
         rows={equipmentType}
         columns={columns}
-        getRowId={(row) => row.typeId}
+        getRowId={(row) => row.id}
         checkboxSelection
         className="bg-white shadow rounded-lg border border-gray-200 mt-5 !text-gray-700"
       />
