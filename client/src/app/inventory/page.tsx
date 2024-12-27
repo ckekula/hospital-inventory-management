@@ -1,54 +1,141 @@
 "use client";
 
+import React, { useState } from "react";
+import { Box, Button } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
 import Header from "@/components/shared/header";
-import {useGetEquipmentTypesQuery} from "@/state/api";
-import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import { InventoryPopup } from "@/components/inventory/inventoryPopup";
+import { InventoryTable } from "@/components/inventory/inventoryTable";
+import { useGetEquipmentTypesQuery, useAddEquipmentTypeMutation, useUpdateEquipmentTypeMutation, useDeleteEquipmentTypeMutation } from "@/state/api";
+import { PopupState, FormData, EquipmentType } from "@/types/inventory";
 
-const columns: GridColDef[] = [
-  {field: "id", headerName: "ID", width: 90},
-  {field: "name", headerName: "Equipment Type", width: 200},
-  {
-    field: "quantity",
-    headerName: "Quantity",
-    width: 110,
-    type: "number",
-  },
-  {
-    field: "minStock",
-    headerName: "Minimum Stock",
-    width: 150,
-    type: "number",
-  },
-];
+const Inventory: React.FC = () => {
+  const { data: equipmentTypes = [], isError, isLoading } = useGetEquipmentTypesQuery();
+  const [addEquipmentType] = useAddEquipmentTypeMutation();
+  const [updateEquipmentType] = useUpdateEquipmentTypeMutation();
+  const [deleteEquipmentType] = useDeleteEquipmentTypeMutation();
 
-const Inventory = () => {
-  const {data: equipmentType, isError, isLoading} = useGetEquipmentTypesQuery();
+  const [dialogState, setDialogState] = useState<PopupState>({
+    type: null,
+    isOpen: false,
+    selectedEquipment: null
+  });
 
-  console.log(equipmentType);
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    minStock: ""
+  });
 
+  const handleDialogOpen = (type: PopupState['type'], equipment: EquipmentType | null = null) => {
+    setDialogState({
+      type,
+      isOpen: true,
+      selectedEquipment: equipment
+    });
+
+    if (equipment) {
+      setFormData({
+        name: equipment.name,
+        minStock: equipment.minStock.toString()
+      });
+    } else {
+      setFormData({
+        name: "",
+        minStock: ""
+      });
+    }
+  };
+
+  const handleDialogClose = () => {
+    setDialogState({
+      type: null,
+      isOpen: false,
+      selectedEquipment: null
+    });
+    setFormData({
+      name: "",
+      minStock: ""
+    });
+  };
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const numericFormData = {
+      name: formData.name,
+      quantity: 0,
+      minStock: parseInt(formData.minStock)
+    };
+  
+    try {
+      if (dialogState.type === 'add') {
+        await addEquipmentType(numericFormData).unwrap();
+      } else if (dialogState.type === 'edit' && dialogState.selectedEquipment) {
+        await updateEquipmentType({
+          id: dialogState.selectedEquipment.id,
+          data: numericFormData
+        }).unwrap();
+      } else if (dialogState.type === 'delete' && dialogState.selectedEquipment) {
+        await deleteEquipmentType(dialogState.selectedEquipment.id).unwrap();
+      }
+      handleDialogClose();
+    } catch (error) {
+      console.error('Operation failed:', error);
+    }
+  };
+  
   if (isLoading) {
-    return <div className="py-4">Loading...</div>;
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+        Loading...
+      </Box>
+    );
   }
 
-  if (isError || !equipmentType) {
+  if (isError) {
     return (
-      <div className="text-center text-red-500 py-4">
-        Failed to fetch Inventory items
-      </div>
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px" color="error.main">
+        Failed to fetch inventory items
+      </Box>
     );
   }
 
   return (
-    <div className="flex flex-col">
+    <Box sx={{ p: 3 }}>
       <Header name="Inventory" />
-      <DataGrid
-        rows={equipmentType}
-        columns={columns}
-        getRowId={(row) => row.id}
-        checkboxSelection
-        className="bg-white shadow rounded-lg border border-gray-200 mt-5 !text-gray-700"
+      
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => handleDialogOpen('add')}
+        >
+          Add Equipment Type
+        </Button>
+      </Box>
+
+      <InventoryTable
+        equipment={equipmentTypes}
+        onEdit={(equipment: EquipmentType) => handleDialogOpen('edit', equipment)}
+        onDelete={(equipment: EquipmentType) => handleDialogOpen('delete', equipment)}
       />
-    </div>
+
+      <InventoryPopup
+        dialogState={dialogState}
+        formData={formData}
+        onClose={handleDialogClose}
+        onSubmit={handleSubmit}
+        onFormChange={handleFormChange}
+      />
+    </Box>
   );
 };
 
