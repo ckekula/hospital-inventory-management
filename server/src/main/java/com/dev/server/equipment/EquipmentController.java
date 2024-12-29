@@ -15,13 +15,11 @@ public class EquipmentController {
         this.service = service;
     }
 
-    // Get all equipment
     @GetMapping
     public List<Equipment> getAllEquipment() {
         return service.getAllEquipment();
     }
 
-    // Get equipment by ID
     @GetMapping("/{id}")
     public ResponseEntity<Equipment> getEquipmentById(@PathVariable Integer id) {
         return service.getEquipmentById(id)
@@ -29,13 +27,11 @@ public class EquipmentController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Create new equipment
     @PostMapping
     public Equipment createEquipment(@RequestBody Equipment equipment) {
         return service.createEquipment(equipment);
     }
 
-    // Update equipment by ID
     @PutMapping("/{id}")
     public ResponseEntity<Equipment> updateEquipment(@PathVariable Integer id, @RequestBody Equipment updatedEquipment) {
         try {
@@ -45,7 +41,6 @@ public class EquipmentController {
         }
     }
 
-    // Delete equipment by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEquipment(@PathVariable Integer id) {
         service.deleteEquipment(id);
