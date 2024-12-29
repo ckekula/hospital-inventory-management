@@ -8,6 +8,9 @@ import {
   Button,
   TextField,
   Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
 } from '@mui/material';
 import { InventoryPopupProps } from '@/types/inventory';
 
@@ -18,6 +21,17 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
   onSubmit,
   onFormChange,
 }) => {
+  const handleTypeChange = (
+    _event: React.MouseEvent<HTMLElement>,
+    newType: 'INDIVIDUAL' | 'BULK'
+  ) => {
+    if (newType !== null) {
+      onFormChange({
+        target: { name: 'type', value: newType }
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+  };
+
   return (
     <Dialog
       open={dialogState.isOpen}
@@ -42,12 +56,47 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <TextField
                 name="name"
-                label="Equipment Type"
+                label="Name"
                 value={formData.name}
                 onChange={onFormChange}
                 required
                 fullWidth
               />
+              
+              {dialogState.type === 'add' ? (
+                <ToggleButtonGroup
+                  value={formData.type || 'INDIVIDUAL'}
+                  exclusive
+                  onChange={handleTypeChange}
+                  aria-label="equipment type"
+                  fullWidth
+                >
+                  <ToggleButton value="INDIVIDUAL">
+                    Individual
+                  </ToggleButton>
+                  <ToggleButton value="BULK">
+                    Bulk
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              ) : (
+                <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
+                  <Typography variant="body2" color="textSecondary">
+                    Type: {formData.type === 'INDIVIDUAL' ? 'Individual' : 'Bulk'}
+                  </Typography>
+                </Box>
+              )}
+
+              {formData.type === 'BULK' && (
+                <TextField
+                  name="quantity"
+                  label="Quantity"
+                  type="number"
+                  value={formData.quantity || '0'}
+                  onChange={onFormChange}
+                  fullWidth
+                />
+              )}
+
               <TextField
                 name="minStock"
                 label="Minimum Stock"

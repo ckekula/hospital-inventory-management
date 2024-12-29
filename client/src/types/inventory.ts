@@ -1,28 +1,26 @@
-export interface EquipmentType {
-    id: string;
-    name: string;
-    quantity: number;
-    minStock: number;
-    created_date: string;
-    updated_date: string;
+export interface Equipment {
+  id: string;
+  name: string;
+  quantity: number;
+  minStock: number;
+  type: 'INDIVIDUAL' | 'BULK';
+
 }
 
 export interface FormData {
-    name: string;
-    minStock: string;
+  name: string;
+  minStock: string;
+  type: 'INDIVIDUAL' | 'BULK';
+  quantity: string;
 }
 
 export type PopupType = 'add' | 'edit' | 'delete' | null;
 
-export interface PopupState {
-    type: 'add' | 'edit' | 'delete' | null;
-    isOpen: boolean;
-    selectedEquipment: {
-      id: string;
-      name: string;
-      minStock: number;
-    } | null;
-}
+export type PopupState = {
+  type: 'add' | 'edit' | 'delete' | null;
+  isOpen: boolean;
+  selectedEquipment: Equipment | null;
+};
 
 export interface InventoryPopupProps {
   dialogState: PopupState;
@@ -33,7 +31,7 @@ export interface InventoryPopupProps {
 }
 
 export interface InventoryTableProps {
-  equipment: EquipmentType[];
-  onEdit: (equipment: EquipmentType) => void;
-  onDelete: (equipment: EquipmentType) => void;
+  equipment: Equipment[];
+  onEdit: (equipment: Equipment) => void;
+  onDelete: (equipment: Equipment) => void;
 }

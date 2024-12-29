@@ -1,4 +1,4 @@
-import { EquipmentType } from "@/types/inventory";
+import { Equipment } from "@/types/inventory";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -6,43 +6,43 @@ export const api = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
   }),
   reducerPath: "api",
-  tagTypes: ["EquipmentTypes", "Units", "Locations"],
+  tagTypes: ["Equipment", "Units", "Locations"],
   endpoints: (build) => ({
-    getEquipmentTypes: build.query<EquipmentType[], void>({
-      query: () => "/equipment-types",
-      providesTags: ["EquipmentTypes"],
+    getEquipment: build.query<Equipment[], void>({
+      query: () => "/equipment",
+      providesTags: ["Equipment"],
     }),
-    addEquipmentType: build.mutation<EquipmentType, Partial<EquipmentType>>({
+    addEquipment: build.mutation<Equipment, Partial<Equipment>>({
       query: (body) => ({
-        url: "/equipment-types",
+        url: "/equipment",
         method: "POST",
         body,
       }),
-      invalidatesTags: ["EquipmentTypes"],
+      invalidatesTags: ["Equipment"],
     }),
-    updateEquipmentType: build.mutation<EquipmentType,
-      { id: string; data: Partial<EquipmentType> }
+    updateEquipment: build.mutation<Equipment,
+      { id: string; data: Partial<Equipment> }
     >({
       query: ({ id, data }) => ({
-        url: `/equipment-types/${id}`,
+        url: `/equipment/${id}`,
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["EquipmentTypes"],
+      invalidatesTags: ["Equipment"],
     }),
-    deleteEquipmentType: build.mutation<void, string>({
+    deleteEquipment: build.mutation<void, string>({
       query: (id) => ({
-        url: `/equipment-types/${id}`,
+        url: `/equipment/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["EquipmentTypes"],
+      invalidatesTags: ["Equipment"],
     }),
   }),
 });
 
 export const {
-  useGetEquipmentTypesQuery,
-  useAddEquipmentTypeMutation,
-  useUpdateEquipmentTypeMutation,
-  useDeleteEquipmentTypeMutation,
+  useGetEquipmentQuery,
+  useAddEquipmentMutation,
+  useUpdateEquipmentMutation,
+  useDeleteEquipmentMutation,
 } = api;

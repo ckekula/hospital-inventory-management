@@ -12,7 +12,7 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
   const columns: GridColDef[] = [
     {
       field: "name",
-      headerName: "Equipment Type",
+      headerName: "Equipment",
       flex: 1,
       minWidth: 200
     },
@@ -29,6 +29,14 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
       flex: 1,
       minWidth: 150,
       type: "number"
+    },
+    {
+      field: "type",
+      headerName: "Type",
+      flex: 1,
+      minWidth: 150,
+      valueFormatter: (params: { value: string }) => params.value?.toLowerCase(),
+      type: "string",
     },
     {
       field: "actions",

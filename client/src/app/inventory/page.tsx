@@ -6,14 +6,14 @@ import { Add as AddIcon } from "@mui/icons-material";
 import Header from "@/components/shared/header";
 import { InventoryPopup } from "@/components/inventory/inventoryPopup";
 import { InventoryTable } from "@/components/inventory/inventoryTable";
-import { useGetEquipmentTypesQuery, useAddEquipmentTypeMutation, useUpdateEquipmentTypeMutation, useDeleteEquipmentTypeMutation } from "@/state/api";
-import { PopupState, FormData, EquipmentType } from "@/types/inventory";
+import { useGetEquipmentQuery, useAddEquipmentMutation, useUpdateEquipmentMutation, useDeleteEquipmentMutation } from "@/state/api";
+import { PopupState, FormData, Equipment } from "@/types/inventory";
 
 const Inventory: React.FC = () => {
-  const { data: equipmentTypes = [], isError, isLoading } = useGetEquipmentTypesQuery();
-  const [addEquipmentType] = useAddEquipmentTypeMutation();
-  const [updateEquipmentType] = useUpdateEquipmentTypeMutation();
-  const [deleteEquipmentType] = useDeleteEquipmentTypeMutation();
+  const { data: equipment = [], isError, isLoading } = useGetEquipmentQuery();
+  const [addEquipment] = useAddEquipmentMutation();
+  const [updateEquipment] = useUpdateEquipmentMutation();
+  const [deleteEquipment] = useDeleteEquipmentMutation();
 
   const [dialogState, setDialogState] = useState<PopupState>({
     type: null,
@@ -23,29 +23,35 @@ const Inventory: React.FC = () => {
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    minStock: ""
+    minStock: "",
+    type: "INDIVIDUAL",
+    quantity: "0"
   });
 
-  const handleDialogOpen = (type: PopupState['type'], equipment: EquipmentType | null = null) => {
+  const handleDialogOpen = (type: PopupState['type'], equipment: Equipment | null = null) => {
     setDialogState({
       type,
       isOpen: true,
       selectedEquipment: equipment
     });
-
+  
     if (equipment) {
       setFormData({
         name: equipment.name,
-        minStock: equipment.minStock.toString()
+        minStock: equipment.minStock.toString(),
+        type: equipment.type || 'INDIVIDUAL',
+        quantity: equipment.quantity?.toString() || '0'
       });
     } else {
       setFormData({
         name: "",
-        minStock: ""
+        minStock: "",
+        type: "INDIVIDUAL",
+        quantity: "0"
       });
     }
   };
-
+  
   const handleDialogClose = () => {
     setDialogState({
       type: null,
@@ -54,7 +60,9 @@ const Inventory: React.FC = () => {
     });
     setFormData({
       name: "",
-      minStock: ""
+      minStock: "",
+      type: "INDIVIDUAL",
+      quantity: "0"
     });
   };
 
@@ -71,20 +79,21 @@ const Inventory: React.FC = () => {
     
     const numericFormData = {
       name: formData.name,
-      quantity: 0,
-      minStock: parseInt(formData.minStock)
+      quantity: formData.type === 'BULK' ? parseInt(formData.quantity || '0') : 0,
+      minStock: parseInt(formData.minStock),
+      type: formData.type || 'INDIVIDUAL'
     };
   
     try {
       if (dialogState.type === 'add') {
-        await addEquipmentType(numericFormData).unwrap();
+        await addEquipment(numericFormData).unwrap();
       } else if (dialogState.type === 'edit' && dialogState.selectedEquipment) {
-        await updateEquipmentType({
+        await updateEquipment({
           id: dialogState.selectedEquipment.id,
           data: numericFormData
         }).unwrap();
       } else if (dialogState.type === 'delete' && dialogState.selectedEquipment) {
-        await deleteEquipmentType(dialogState.selectedEquipment.id).unwrap();
+        await deleteEquipment(dialogState.selectedEquipment.id).unwrap();
       }
       handleDialogClose();
     } catch (error) {
@@ -118,14 +127,14 @@ const Inventory: React.FC = () => {
           startIcon={<AddIcon />}
           onClick={() => handleDialogOpen('add')}
         >
-          Add Equipment Type
+          Add Equipment
         </Button>
       </Box>
 
       <InventoryTable
-        equipment={equipmentTypes}
-        onEdit={(equipment: EquipmentType) => handleDialogOpen('edit', equipment)}
-        onDelete={(equipment: EquipmentType) => handleDialogOpen('delete', equipment)}
+        equipment={equipment}
+        onEdit={(equipment: Equipment) => handleDialogOpen('edit', equipment)}
+        onDelete={(equipment: Equipment) => handleDialogOpen('delete', equipment)}
       />
 
       <InventoryPopup
