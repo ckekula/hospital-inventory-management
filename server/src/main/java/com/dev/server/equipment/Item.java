@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "item")
 public class Item {
     @Id
@@ -25,7 +27,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    private Equipment type;
+    private Equipment equipment;
 
     private String manufacturer;
     private String modelNo;
@@ -61,6 +63,6 @@ public class Item {
     private LocalDateTime lastModifiedDate;
 
     public enum Status {
-        OPERATIONAL, RETIRED
+        Active, Inactive
     };
 }

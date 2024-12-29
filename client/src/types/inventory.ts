@@ -3,7 +3,7 @@ export interface Equipment {
   name: string;
   quantity: number;
   minStock: number;
-  type: 'INDIVIDUAL' | 'BULK';
+  type: 'Individual' | 'Bulk';
 
 }
 

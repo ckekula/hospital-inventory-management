@@ -1,4 +1,5 @@
 import { Equipment } from "@/types/inventory";
+import { Item } from "@/types/item";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -6,7 +7,7 @@ export const api = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
   }),
   reducerPath: "api",
-  tagTypes: ["Equipment", "Units", "Locations"],
+  tagTypes: ["Equipment", "Item", "Unit", "Location"],
   endpoints: (build) => ({
     getEquipment: build.query<Equipment[], void>({
       query: () => "/equipment",
@@ -37,6 +38,35 @@ export const api = createApi({
       }),
       invalidatesTags: ["Equipment"],
     }),
+    getItems: build.query<Item[], void>({
+      query: () => "/item",
+      providesTags: ["Item"],
+    }),
+    addItem: build.mutation<Item, Partial<Item>>({
+      query: (body) => ({
+        url: "/item",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Item"],
+    }),
+    updateItem: build.mutation<Item,
+      { id: string; data: Partial<Item> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/item/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Item"],
+    }),
+    deleteItem: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/item/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Item"],
+    }),
   }),
 });
 
@@ -45,4 +75,8 @@ export const {
   useAddEquipmentMutation,
   useUpdateEquipmentMutation,
   useDeleteEquipmentMutation,
+  useGetItemsQuery,
+  useAddItemMutation,
+  useUpdateItemMutation,
+  useDeleteItemMutation,
 } = api;
