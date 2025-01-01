@@ -1,3 +1,4 @@
+import { Unit } from "@/types/admin";
 import { Equipment } from "@/types/inventory";
 import { Item } from "@/types/item";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -67,6 +68,25 @@ export const api = createApi({
       }),
       invalidatesTags: ["Item"],
     }),
+    getUnits: build.query<Unit[], void>({
+      query: () => "/unit",
+      providesTags: ["Unit"],
+    }),
+    addUnit: build.mutation<Unit, Partial<Item>>({
+      query: (body) => ({
+        url: "/unit",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Unit"],
+    }),
+    deleteUnit: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/unit/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Unit"],
+    }),
   }),
 });
 
@@ -79,4 +99,7 @@ export const {
   useAddItemMutation,
   useUpdateItemMutation,
   useDeleteItemMutation,
+  useGetUnitsQuery,
+  useAddUnitMutation,
+  useDeleteUnitMutation,
 } = api;
