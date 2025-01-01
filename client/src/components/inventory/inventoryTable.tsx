@@ -35,7 +35,6 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
       headerName: "Type",
       flex: 1,
       minWidth: 150,
-      valueFormatter: (params: { value: string }) => params.value?.toLowerCase(),
       type: "string",
     },
     {

@@ -10,7 +10,7 @@ export interface Equipment {
 export interface FormData {
   name: string;
   minStock: string;
-  type: 'INDIVIDUAL' | 'BULK';
+  type: 'Individual' | 'Bulk';
   quantity: string;
 }
 

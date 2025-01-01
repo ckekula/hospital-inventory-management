@@ -23,7 +23,7 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
 }) => {
   const handleTypeChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newType: 'INDIVIDUAL' | 'BULK'
+    newType: 'Individual' | 'Bulk'
   ) => {
     if (newType !== null) {
       onFormChange({
@@ -65,28 +65,28 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
               
               {dialogState.type === 'add' ? (
                 <ToggleButtonGroup
-                  value={formData.type || 'INDIVIDUAL'}
+                  value={formData.type || 'Individual'}
                   exclusive
                   onChange={handleTypeChange}
                   aria-label="equipment type"
                   fullWidth
                 >
-                  <ToggleButton value="INDIVIDUAL">
+                  <ToggleButton value="Individual">
                     Individual
                   </ToggleButton>
-                  <ToggleButton value="BULK">
+                  <ToggleButton value="Bulk">
                     Bulk
                   </ToggleButton>
                 </ToggleButtonGroup>
               ) : (
                 <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
                   <Typography variant="body2" color="textSecondary">
-                    Type: {formData.type === 'INDIVIDUAL' ? 'Individual' : 'Bulk'}
+                    Type: {formData.type === 'Individual' ? 'Individual' : 'Bulk'}
                   </Typography>
                 </Box>
               )}
 
-              {formData.type === 'BULK' && (
+              {formData.type === 'Bulk' && (
                 <TextField
                   name="quantity"
                   label="Quantity"
