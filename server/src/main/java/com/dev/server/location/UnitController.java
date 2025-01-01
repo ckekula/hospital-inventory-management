@@ -1,4 +1,4 @@
-package com.dev.server.unit;
+package com.dev.server.location;
 
 import com.dev.server.services.UnitService;
 import org.springframework.http.ResponseEntity;

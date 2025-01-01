@@ -1,8 +1,8 @@
 package com.dev.server.location;
 
-import com.dev.server.unit.Unit;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "location")
+@EntityListeners(AuditingEntityListener.class)
 public class Location {
     @Id
     @GeneratedValue

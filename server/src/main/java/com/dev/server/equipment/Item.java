@@ -1,7 +1,7 @@
 package com.dev.server.equipment;
 
 import com.dev.server.location.Location;
-import com.dev.server.unit.Unit;
+import com.dev.server.location.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

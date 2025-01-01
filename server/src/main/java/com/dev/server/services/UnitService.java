@@ -1,7 +1,7 @@
 package com.dev.server.services;
 
-import com.dev.server.unit.Unit;
-import com.dev.server.unit.UnitRepository;
+import com.dev.server.location.Unit;
+import com.dev.server.location.UnitRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

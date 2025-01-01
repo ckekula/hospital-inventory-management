@@ -1,10 +1,8 @@
-package com.dev.server.unit;
+package com.dev.server.location;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
@@ -13,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "unit")
+@EntityListeners(AuditingEntityListener.class)
 public class Unit {
     @Id
     @GeneratedValue
