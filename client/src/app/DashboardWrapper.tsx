@@ -4,6 +4,7 @@ import { useSession, signIn } from "next-auth/react";
 import Navbar from "@/components/shared/navbar";
 import Sidebar from "@/components/shared/sidebar";
 import StoreProvider, { useAppSelector } from "./redux";
+import { Suspense } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isSidebarCollapsed = useAppSelector(
@@ -41,7 +42,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         }`}
       >
         <Navbar />
-        {children}
+        <Suspense fallback={<div>Loading...</div>}>
+          {children}
+        </Suspense>
       </main>
     </div>
   );

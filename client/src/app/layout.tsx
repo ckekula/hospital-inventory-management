@@ -57,6 +57,7 @@ const interFont = localFont({
       style: 'normal',
     },
   ],
+  display: 'swap',
   variable: '--font-inter',
 })
 

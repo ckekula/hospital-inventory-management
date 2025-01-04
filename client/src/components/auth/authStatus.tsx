@@ -25,6 +25,10 @@ export default function AuthStatus() {
     }
   }, [session, status]);
 
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   if (status == "loading") {
     return <div className="my-3">Loading...</div>;
   } else if (session) {

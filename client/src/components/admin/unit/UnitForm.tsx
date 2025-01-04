@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FormData, PopupState, Unit } from "@/types/admin";
 
-export const useUnitDialog = () => {
+export const UnitForm = () => {
   const [dialogState, setDialogState] = useState<PopupState>({
     type: null,
     isOpen: false,
