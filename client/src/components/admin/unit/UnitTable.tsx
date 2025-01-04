@@ -56,7 +56,7 @@ const UnitTable: React.FC<UnitTableProps> = ({
         getRowId={(row) => row.id}
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 10 }
+            paginationModel: { pageSize: 5 }
           }
         }}
         pageSizeOptions={[5, 10, 25]}

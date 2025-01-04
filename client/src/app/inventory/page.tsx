@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 import Header from "@/components/shared/header";
-import { useGetEquipmentQuery, useAddEquipmentMutation, useUpdateEquipmentMutation, useDeleteEquipmentMutation } from "@/state/api";
+import { useGetEquipmentQuery, useAddEquipmentMutation, useUpdateEquipmentMutation, useDeleteEquipmentMutation } from "@/state/equipmentApi";
 import { PopupState, FormData, Equipment } from "@/types/inventory";
 import { InventoryTable } from "@/components/inventory/InventoryTable";
 import { InventoryPopup } from "@/components/inventory/InventoryPopup";
