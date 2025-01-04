@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 import Header from "@/components/shared/header";
-import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery } from "@/state/api";
+import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery, useUpdateUnitMutation } from "@/state/api";
 import { FormData, PopupState, Unit } from "@/types/admin";
 import UnitTable from "@/components/admin/UnitTable";
 import { UnitPopup } from "@/components/admin/UnitPopup";
@@ -12,6 +12,7 @@ import { UnitPopup } from "@/components/admin/UnitPopup";
 const Admin: React.FC = () => {
   const { data: unit = [], isError, isLoading } = useGetUnitsQuery();
   const [addUnit] = useAddUnitMutation();
+  const [updateUnit] = useUpdateUnitMutation();
   const [deleteUnit] = useDeleteUnitMutation();
 
   const [dialogState, setDialogState] = useState<PopupState>({
@@ -76,6 +77,11 @@ const Admin: React.FC = () => {
     try {
       if (dialogState.type === 'add') {
         await addUnit(numericFormData).unwrap();
+      } else if (dialogState.type === 'edit' && dialogState.selectedUnit){
+        await updateUnit({
+          id: dialogState.selectedUnit.id,
+          data: numericFormData
+        }).unwrap();
       } else if (dialogState.type === 'delete' && dialogState.selectedUnit) {
         await deleteUnit(dialogState.selectedUnit.id).unwrap();
       }
@@ -117,6 +123,7 @@ const Admin: React.FC = () => {
 
       <UnitTable
         unit={unit}
+        onEdit={(unit: Unit) => handleDialogOpen('edit', unit)}
         onDelete={(unit: Unit) => handleDialogOpen('delete', unit)}
       />
 

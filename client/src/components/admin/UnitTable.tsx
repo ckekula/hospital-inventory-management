@@ -1,12 +1,12 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import React from 'react'
-import { Delete as DeleteIcon } from '@mui/icons-material';
+import React from 'react';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { UnitTableProps } from '@/types/admin';
-import { Box } from 'lucide-react';
-import { IconButton, Paper } from '@mui/material';
+import { IconButton, Paper, Box } from '@mui/material';
 
 const UnitTable: React.FC<UnitTableProps> = ({
   unit,
+  onEdit,
   onDelete
 }) => {
   const columns: GridColDef[] = [
@@ -29,6 +29,13 @@ const UnitTable: React.FC<UnitTableProps> = ({
       sortable: false,
       renderCell: (params) => (
         <Box>
+          <IconButton
+            onClick={() => onEdit(params.row)}
+            size="small"
+            color="primary"
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
           <IconButton
             onClick={() => onDelete(params.row)}
             size="small"

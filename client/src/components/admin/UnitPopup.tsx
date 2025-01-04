@@ -9,7 +9,7 @@ import {
   TextField,
   Box,
 } from '@mui/material';
-import { UnitPopupProps } from '@/types/admin';
+import { UnitPopupProps } from '@/types/admin'; 
 
 export const UnitPopup: React.FC<UnitPopupProps> = ({
   dialogState,
@@ -26,7 +26,9 @@ export const UnitPopup: React.FC<UnitPopupProps> = ({
       fullWidth
     >
       <DialogTitle>
-        {dialogState.type === 'add' ? 'Add Equipment' : 'Confirm Delete'}
+      {dialogState.type === 'add' ? 'Add Unit' :
+         dialogState.type === 'edit' ? 'Edit Unit Head' :
+         'Confirm Delete'}
       </DialogTitle>
 
       <form onSubmit={onSubmit}>
@@ -48,11 +50,12 @@ export const UnitPopup: React.FC<UnitPopupProps> = ({
               />
 
               <TextField
-                name="quantity"
-                label="Quantity"
+                name="head"
+                label="Head"
                 type="number"
                 value={formData.head}
                 onChange={onFormChange}
+                required
                 fullWidth
               />
             </Box>
@@ -66,8 +69,12 @@ export const UnitPopup: React.FC<UnitPopupProps> = ({
               Delete
             </Button>
           ) : (
-            <Button type="submit" color="primary" variant="contained">
-              Add
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+            >
+              {dialogState.type === 'add' ? 'Add' : 'Update'}
             </Button>
           )}
         </DialogActions>

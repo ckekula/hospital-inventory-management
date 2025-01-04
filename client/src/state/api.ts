@@ -80,6 +80,16 @@ export const api = createApi({
       }),
       invalidatesTags: ["Unit"],
     }),
+    updateUnit: build.mutation<Unit,
+      { id: string; data: Partial<Unit> }
+    >({
+      query: ({ id, data }) => ({
+        url: `/unit/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Unit"],
+    }),
     deleteUnit: build.mutation<void, string>({
       query: (id) => ({
         url: `/unit/${id}`,
@@ -101,5 +111,6 @@ export const {
   useDeleteItemMutation,
   useGetUnitsQuery,
   useAddUnitMutation,
+  useUpdateUnitMutation,
   useDeleteUnitMutation,
 } = api;

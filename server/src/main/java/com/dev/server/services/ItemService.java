@@ -34,7 +34,7 @@ public class ItemService {
     public Item updateItem(Integer id, Item updatedItem) {
         return repository.findById(id).map(existingItem -> {
             existingItem.setName(updatedItem.getName());
-            existingItem.setType(updatedItem.getType());
+            existingItem.setEquipment(updatedItem.getEquipment());
             existingItem.setManufacturer(updatedItem.getManufacturer());
             existingItem.setModelNo(updatedItem.getModelNo());
             existingItem.setSerialNo(updatedItem.getSerialNo());

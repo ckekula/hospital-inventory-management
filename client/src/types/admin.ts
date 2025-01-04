@@ -6,6 +6,7 @@ export interface Unit {
 
 export interface UnitTableProps {
   unit: Unit[];
+  onEdit: (unit: Unit) => void;
   onDelete: (unit: Unit) => void;
 }
 
@@ -15,7 +16,7 @@ export interface FormData {
 }
 
 export type PopupState = {
-  type: 'add' | 'delete' | null;
+  type: 'add' | 'edit' | 'delete' | null;
   isOpen: boolean;
   selectedUnit: Unit | null;
 };

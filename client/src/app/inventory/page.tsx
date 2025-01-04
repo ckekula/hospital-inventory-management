@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 import Header from "@/components/shared/header";
-import { InventoryPopup } from "@/components/inventory/inventoryPopup";
-import { InventoryTable } from "@/components/inventory/inventoryTable";
 import { useGetEquipmentQuery, useAddEquipmentMutation, useUpdateEquipmentMutation, useDeleteEquipmentMutation } from "@/state/api";
 import { PopupState, FormData, Equipment } from "@/types/inventory";
+import { InventoryTable } from "@/components/inventory/InventoryTable";
+import { InventoryPopup } from "@/components/inventory/InventoryPopup";
 
 const Inventory: React.FC = () => {
   const { data: equipment = [], isError, isLoading } = useGetEquipmentQuery();
@@ -24,7 +24,7 @@ const Inventory: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     minStock: "",
-    type: "INDIVIDUAL",
+    type: "Individual",
     quantity: "0"
   });
 
@@ -39,14 +39,14 @@ const Inventory: React.FC = () => {
       setFormData({
         name: equipment.name,
         minStock: equipment.minStock.toString(),
-        type: equipment.type || 'INDIVIDUAL',
+        type: equipment.type || 'Individual',
         quantity: equipment.quantity?.toString() || '0'
       });
     } else {
       setFormData({
         name: "",
         minStock: "",
-        type: "INDIVIDUAL",
+        type: "Individual",
         quantity: "0"
       });
     }
@@ -61,7 +61,7 @@ const Inventory: React.FC = () => {
     setFormData({
       name: "",
       minStock: "",
-      type: "INDIVIDUAL",
+      type: "Individual",
       quantity: "0"
     });
   };
@@ -79,9 +79,9 @@ const Inventory: React.FC = () => {
     
     const numericFormData = {
       name: formData.name,
-      quantity: formData.type === 'BULK' ? parseInt(formData.quantity || '0') : 0,
+      quantity: formData.type === 'Bulk' ? parseInt(formData.quantity || '0') : 0,
       minStock: parseInt(formData.minStock),
-      type: formData.type || 'INDIVIDUAL'
+      type: formData.type || 'Individual'
     };
   
     try {

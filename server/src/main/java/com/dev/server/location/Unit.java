@@ -17,6 +17,9 @@ public class Unit {
     @GeneratedValue
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
-    private String unitHead;
+
+    @Column(nullable = false, unique = true)
+    private String head;
 }
