@@ -30,6 +30,16 @@ public class UnitService {
         return repository.save(unit);
     }
 
+    // Update Unit head
+    public Unit updateUnit(Integer id, Unit updatedUnit) {
+        return repository.findById(id)
+                .map(unit -> {
+                    unit.setHead(updatedUnit.getName());
+                    return repository.save(unit);
+                })
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
+    }
+
     // Delete a unit by ID
     public void deleteUnit(Integer id) {
         repository.deleteById(id);
