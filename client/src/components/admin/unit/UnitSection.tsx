@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
-import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery, useUpdateUnitMutation } from "@/state/baseApi";
+import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery, useUpdateUnitMutation } from "@/state/unitApi";
 import { Unit } from "@/types/admin";
 import UnitTable from "./UnitTable";
 import { UnitPopup } from "./UnitPopup";

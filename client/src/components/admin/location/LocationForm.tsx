@@ -1,36 +1,36 @@
 'use client';
 
 import { useState } from 'react';
-import { UnitFormData, UnitPopupState, Unit } from "@/types/admin";
+import { LocationFormData, LocationPopupState, Location } from "@/types/admin";
 
-export const UnitForm = () => {
-  const [dialogState, setDialogState] = useState<UnitPopupState>({
+export const LocationForm = () => {
+  const [dialogState, setDialogState] = useState<LocationPopupState>({
     type: null,
     isOpen: false,
-    selectedUnit: null
+    selectedLocation: null
   });
 
-  const [formData, setFormData] = useState<UnitFormData>({
+  const [formData, setFormData] = useState<LocationFormData>({
     name: "",
-    head: ""
+    unit: ""
   });
 
-  const handleDialogOpen = (type: UnitPopupState['type'], unit: Unit | null = null) => {
+  const handleDialogOpen = (type: LocationPopupState['type'], location: Location | null = null) => {
     setDialogState({
       type,
       isOpen: true,
-      selectedUnit: unit
+      selectedLocation: location
     });
   
-    if (unit) {
+    if (location) {
       setFormData({
-        name: unit.name,
-        head: unit.head
+        name: location.name,
+        unit: location.unit
       });
     } else {
       setFormData({
         name: "",
-        head: ""
+        unit: ""
       });
     }
   };
@@ -39,11 +39,11 @@ export const UnitForm = () => {
     setDialogState({
       type: null,
       isOpen: false,
-      selectedUnit: null
+      selectedLocation: null
     });
     setFormData({
       name: "",
-      head: ""
+      unit: ""
     });
   };
 

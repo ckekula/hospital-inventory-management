@@ -6,12 +6,17 @@ import Header from "@/components/shared/header";
 import { UnitSection } from "@/components/admin/unit/UnitSection";
 import { Loading, Error } from "@/components/admin/LoadingAndError";
 import { useGetUnitsQuery } from "@/state/unitApi";
+import { useGetLocationsQuery } from "@/state/locationApi";
+import { LocationSection } from "@/components/admin/location/LocationSection";
 
 const Admin: React.FC = () => {
-  const { isError, isLoading } = useGetUnitsQuery();
+  const { isError: isUnitsError, isLoading: isUnitsLoading } = useGetUnitsQuery();
+  const { isError: isLocationsError, isLoading: isLocationsLoading } = useGetLocationsQuery();
 
-  if (isLoading) return <Loading />;
-  if (isError) return <Error message="Failed to fetch data" />;
+  if (isUnitsLoading || isLocationsLoading) return <Loading />;
+  
+  if (isUnitsError) return <Error message="Failed to fetch units data" />;
+  if (isLocationsError) return <Error message="Failed to fetch locations data" />;
 
   return (
     <div>
@@ -20,14 +25,9 @@ const Admin: React.FC = () => {
         <UnitSection />
       </Box>
 
-      <Box sx={{ p:3 }}>
+      <Box sx={{ p: 3 }}>
         <Header name="Locations" />
-        <UnitSection />
-      </Box>
-
-      <Box sx={{ p:3 }}>
-        <Header name="Users" />
-        <UnitSection />
+        <LocationSection />
       </Box>
     </div>
   );
