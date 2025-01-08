@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Equipment {
     @Id
     @GeneratedValue
-    private Integer id;
+    private String id;
 
     private String name;
     private int quantity;

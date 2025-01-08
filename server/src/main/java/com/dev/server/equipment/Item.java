@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class Item {
     @Id
     @GeneratedValue
-    private Integer id;
+    private String id;
 
     private String name;
 

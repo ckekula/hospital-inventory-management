@@ -5,7 +5,7 @@ import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery, useUpdateU
 import { Unit } from "@/types/admin";
 import UnitTable from "./UnitTable";
 import { UnitPopup } from "./UnitPopup";
-import { UnitForm } from "./UnitForm";
+import { UnitForm } from "./useUnitForm";
 
 export const UnitSection: React.FC = () => {
   const { data: unit = [] } = useGetUnitsQuery();

@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Unit {
     @Id
     @GeneratedValue
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private String name;

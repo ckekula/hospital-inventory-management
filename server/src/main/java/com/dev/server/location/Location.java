@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Location {
     @Id
     @GeneratedValue
-    private Integer id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "unit_id")
