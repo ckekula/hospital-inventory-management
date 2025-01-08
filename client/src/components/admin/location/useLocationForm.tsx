@@ -25,7 +25,7 @@ export const LocationForm = () => {
     if (location) {
       setFormData({
         name: location.name,
-        unit: location.unit
+        unit: location.unit?.id || ""
       });
     } else {
       setFormData({

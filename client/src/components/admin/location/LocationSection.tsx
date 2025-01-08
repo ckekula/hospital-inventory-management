@@ -2,13 +2,13 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 import { useAddLocationMutation, useDeleteLocationMutation, useGetLocationsQuery } from "@/state/locationApi";
-import { LocationForm } from "./LocationForm";
+import { LocationForm } from "./useLocationForm";
 import LocationTable from "./LocationTable";
 import { LocationPopup } from "./LocationPopup";
 import { Location } from "@/types/admin";
 
 export const LocationSection: React.FC = () => {
-  const { data: location = [] } = useGetLocationsQuery();
+  const { data: locations = [] } = useGetLocationsQuery();
   const [addLocation] = useAddLocationMutation();
   const [deleteLocation] = useDeleteLocationMutation();
 
@@ -23,14 +23,16 @@ export const LocationSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const numericFormData = {
+    const locationData = {
       name: formData.name,
-      unit: formData.unit
+      unit: {
+        id: formData.unit
+      }
     };
 
     try {
       if (dialogState.type === 'add') {
-        await addLocation(numericFormData).unwrap();
+        await addLocation(locationData).unwrap();
       } else if (dialogState.type === 'delete' && dialogState.selectedLocation) {
         await deleteLocation(dialogState.selectedLocation.id).unwrap();
       }
@@ -53,7 +55,7 @@ export const LocationSection: React.FC = () => {
       </Box>
 
       <LocationTable
-        location={location}
+        location={locations}
         onDelete={(location: Location) => handleDialogOpen('delete', location)}
       />
 

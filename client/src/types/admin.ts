@@ -32,7 +32,12 @@ export interface UnitPopupProps {
 export interface Location {
   id: string;
   name: string;
-  unit: string;
+  unit: Unit;
+}
+
+export interface LocationFormData {
+  name: string;
+  unit: string; // Store the unit ID
 }
 
 export interface LocationTableProps {
@@ -40,21 +45,16 @@ export interface LocationTableProps {
   onDelete: (location: Location) => void;
 }
 
-export interface LocationFormData {
-  name: string;
-  unit: string;
-}
-
 export type LocationPopupState = {
   type: 'add' | 'delete' | null;
   isOpen: boolean;
   selectedLocation: Location | null;
-};
+}
 
 export interface LocationPopupProps {
   dialogState: LocationPopupState;
   formData: LocationFormData;
   onClose: () => void;
-  onSubmit: (e: React.FormEvent) => Promise<void>;
+  onSubmit: (e: React.FormEvent) => void;
   onFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

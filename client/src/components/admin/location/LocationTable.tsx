@@ -19,7 +19,8 @@ const LocationTable: React.FC<LocationTableProps> = ({
       field: "unit",
       headerName: "Unit",
       flex: 1,
-      minWidth: 200
+      minWidth: 200,
+      valueGetter: (params) => params.row.unit?.name || 'N/A',
     },
     {
       field: "actions",
