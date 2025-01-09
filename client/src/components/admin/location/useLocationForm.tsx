@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { LocationFormData, LocationPopupState, Location } from "@/types/admin";
+import { LocationFormData, LocationPopupState, Location, FormChangeEvent } from "@/types/admin";
 
 export const LocationForm = () => {
   const [dialogState, setDialogState] = useState<LocationPopupState>({
@@ -47,13 +47,15 @@ export const LocationForm = () => {
     });
   };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleFormChange = (e: FormChangeEvent) => {
+    const name = 'target' in e ? e.target.name : e.name;
+    const value = 'target' in e ? e.target.value : e.value;
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value as string
     }));
-  };
+  }
 
   return {
     dialogState,

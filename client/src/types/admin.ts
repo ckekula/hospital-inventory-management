@@ -51,10 +51,26 @@ export type LocationPopupState = {
   selectedLocation: Location | null;
 }
 
+export interface CustomChangeEvent {
+  name: string;
+  value: unknown;
+}
+
+export type FormChangeEvent = 
+  | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  | CustomChangeEvent;
+
 export interface LocationPopupProps {
   dialogState: LocationPopupState;
   formData: LocationFormData;
   onClose: () => void;
-  onSubmit: (e: React.FormEvent) => void;
-  onFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  onFormChange: (e: FormChangeEvent) => void;
+}
+
+export interface AddLocationRequest {
+  name: string;
+  unit: {
+    id: string;
+  };
 }

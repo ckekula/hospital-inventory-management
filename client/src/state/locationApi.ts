@@ -1,3 +1,4 @@
+import { AddLocationRequest } from "@/types/admin";
 import { baseApi } from "./baseApi";
 
 export const locationApi = baseApi.injectEndpoints({
@@ -6,7 +7,7 @@ export const locationApi = baseApi.injectEndpoints({
       query: () => "/location",
       providesTags: ["Location"],
     }),
-    addLocation: build.mutation<Location, Partial<Location>>({
+    addLocation: build.mutation<Location, AddLocationRequest>({
       query: (body) => ({
         url: "/location",
         method: "POST",

@@ -1,14 +1,14 @@
 import React from 'react'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { IconButton, Paper, Box } from '@mui/material';
-import { LocationTableProps } from '@/types/admin';
+import { LocationTableProps, Location } from '@/types/admin';
 
 const LocationTable: React.FC<LocationTableProps> = ({
   location,
   onDelete
 }) => {
-  const columns: GridColDef[] = [
+  const columns: GridColDef<Location>[] = [
     {
       field: "name",
       headerName: "Name",
@@ -20,14 +20,14 @@ const LocationTable: React.FC<LocationTableProps> = ({
       headerName: "Unit",
       flex: 1,
       minWidth: 200,
-      valueGetter: (params) => params.row.unit?.name || 'N/A',
+      valueGetter: (params: GridRenderCellParams<Location>) => params.row.unit?.name || 'N/A'
     },
     {
       field: "actions",
       headerName: "Actions",
       width: 120,
       sortable: false,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams<Location>) => (
         <Box>
           <IconButton
             onClick={() => onDelete(params.row)}
@@ -43,7 +43,7 @@ const LocationTable: React.FC<LocationTableProps> = ({
 
   return (
     <Paper elevation={2}>
-      <DataGrid
+      <DataGrid<Location>
         rows={location}
         columns={columns}
         getRowId={(row) => row.id}
@@ -66,4 +66,4 @@ const LocationTable: React.FC<LocationTableProps> = ({
   );
 }
 
-export default LocationTable
+export default LocationTable;

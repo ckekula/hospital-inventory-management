@@ -12,8 +12,9 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  SelectChangeEvent,
 } from "@mui/material";
-import { LocationPopupProps } from "@/types/admin";
+import { CustomChangeEvent, LocationPopupProps } from "@/types/admin";
 import { useGetUnitsQuery } from "@/state/unitApi";
 
 export const LocationPopup: React.FC<LocationPopupProps> = ({
@@ -24,6 +25,14 @@ export const LocationPopup: React.FC<LocationPopupProps> = ({
   onFormChange,
 }) => {
   const { data: units, isLoading } = useGetUnitsQuery();
+
+  const handleUnitChange = (event: SelectChangeEvent<string>) => {
+    const customEvent: CustomChangeEvent = {
+      name: "unit",
+      value: event.target.value,
+    };
+    onFormChange(customEvent);
+  };
 
   return (
     <Dialog open={dialogState.isOpen} onClose={onClose} maxWidth="sm" fullWidth>
@@ -55,14 +64,7 @@ export const LocationPopup: React.FC<LocationPopupProps> = ({
                   labelId="unit-select-label"
                   name="unit"
                   value={formData.unit}
-                  onChange={(event) =>
-                    onFormChange({
-                      target: {
-                        name: "unit",
-                        value: event.target.value,
-                      },
-                    } as React.ChangeEvent<HTMLInputElement>)
-                  }
+                  onChange={handleUnitChange}
                   required
                   disabled={isLoading}
                 >

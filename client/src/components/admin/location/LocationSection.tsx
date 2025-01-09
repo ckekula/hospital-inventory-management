@@ -5,10 +5,10 @@ import { useAddLocationMutation, useDeleteLocationMutation, useGetLocationsQuery
 import { LocationForm } from "./useLocationForm";
 import LocationTable from "./LocationTable";
 import { LocationPopup } from "./LocationPopup";
-import { Location } from "@/types/admin";
+import { AddLocationRequest, Location } from "@/types/admin";
 
 export const LocationSection: React.FC = () => {
-  const { data: locations = [] } = useGetLocationsQuery();
+  const { data: locations = [] as Location[]} = useGetLocationsQuery();
   const [addLocation] = useAddLocationMutation();
   const [deleteLocation] = useDeleteLocationMutation();
 
@@ -20,10 +20,10 @@ export const LocationSection: React.FC = () => {
     handleFormChange
   } = LocationForm();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const locationData = {
+    const locationData: AddLocationRequest = {
       name: formData.name,
       unit: {
         id: formData.unit
@@ -55,7 +55,7 @@ export const LocationSection: React.FC = () => {
       </Box>
 
       <LocationTable
-        location={locations}
+        location={locations as Location[]}
         onDelete={(location: Location) => handleDialogOpen('delete', location)}
       />
 
