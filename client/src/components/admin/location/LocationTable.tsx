@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Delete as DeleteIcon } from '@mui/icons-material';
@@ -20,7 +21,10 @@ const LocationTable: React.FC<LocationTableProps> = ({
       headerName: "Unit",
       flex: 1,
       minWidth: 200,
-      valueGetter: (params: GridRenderCellParams<Location>) => params.row.unit?.name || 'N/A'
+      renderCell: (params: GridRenderCellParams) => {
+        console.log('Render cell params:', params);
+        return params.row?.unit?.name ?? 'N/A';
+      }
     },
     {
       field: "actions",

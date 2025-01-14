@@ -17,7 +17,7 @@ public class Location {
     @GeneratedValue
     private String id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "unit_id")
     private Unit unit;
 
