@@ -83,6 +83,7 @@ export interface User {
   lastName: string;
   enabled: boolean;
   createdTimestamp: number;
+  roles: string[];
 }
 
 
@@ -92,10 +93,26 @@ export interface UserFormData {
   firstName: string;
   lastName: string;
   enabled: boolean;
+  roles: string[];
 }
 
 export interface UserDialogState {
-  type: 'edit' | 'delete' | null;
+  type: 'add' | 'edit' | 'delete' | null;
   isOpen: boolean;
   selectedUser: User | null;
+}
+
+export interface UserPopupProps {
+  dialogState: UserDialogState;
+  formData: UserFormData;
+  onClose: () => void;
+  onSubmit: (e: React.FormEvent) => void;
+  onFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface UserTableProps {
+  users: User[];
+  onAdd: () => void;
+  onEdit: (user: User) => void;
+  onDelete: (user: User) => void;
 }

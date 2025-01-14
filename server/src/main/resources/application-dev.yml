@@ -33,6 +33,14 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: "http://localhost:9090/realms/hospital-inventory"
+          jwk-set-uri: "http://localhost:9090/realms/hospital-inventory/protocol/openid-connect/certs"
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: hospital-inventory
+  service-account:
+    client-id: hims
+    client-secret: pSTjpHyDbVvBHTeCxfY2B7BgZy8Y3HAf
+
 application:
 server:
   port: 8088

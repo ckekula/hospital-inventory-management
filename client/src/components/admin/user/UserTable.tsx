@@ -9,15 +9,10 @@ import {
   Paper,
   IconButton,
   Chip,
+  Box,
 } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import { User } from '@/types/admin';
-
-interface UserTableProps {
-  users: User[];
-  onEdit: (user: User) => void;
-  onDelete: (user: User) => void;
-}
+import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { UserTableProps } from '@/types/admin';
 
 const UserTable: React.FC<UserTableProps> = ({ users, onEdit, onDelete }) => {
   return (
@@ -50,6 +45,22 @@ const UserTable: React.FC<UserTableProps> = ({ users, onEdit, onDelete }) => {
                 {new Date(user.createdTimestamp).toLocaleDateString()}
               </TableCell>
               <TableCell>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {user.roles?.map((role) => (
+                    <Chip
+                      key={role}
+                      label={role}
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                    />
+                  ))}
+                </Box>
+              </TableCell>
+              <TableCell>
+                <IconButton onClick={() => onEdit(user)} size="small">
+                  <AddIcon />
+                </IconButton>
                 <IconButton onClick={() => onEdit(user)} size="small">
                   <EditIcon />
                 </IconButton>

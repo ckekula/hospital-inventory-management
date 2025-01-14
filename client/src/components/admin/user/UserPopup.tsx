@@ -8,16 +8,18 @@ import {
   TextField,
   FormControlLabel,
   Switch,
+  DialogContentText,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  Chip,
+  MenuItem,
+  SelectChangeEvent,
 } from '@mui/material';
-import { UserDialogState, UserFormData } from '@/types/admin';
+import { UserPopupProps } from '@/types/admin';
 
-interface UserPopupProps {
-  dialogState: UserDialogState;
-  formData: UserFormData;
-  onClose: () => void;
-  onSubmit: (e: React.FormEvent) => void;
-  onFormChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+const AVAILABLE_ROLES = ['hims-admin', 'hims-user'];
 
 export const UserPopup: React.FC<UserPopupProps> = ({
   dialogState,
@@ -26,83 +28,123 @@ export const UserPopup: React.FC<UserPopupProps> = ({
   onSubmit,
   onFormChange,
 }) => {
-  const isEdit = dialogState.type === 'edit';
-  const isDelete = dialogState.type === 'delete';
-
-  if (!dialogState.isOpen) return null;
-
-  if (isDelete) {
-    return (
-      <Dialog open onClose={onClose}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          Are you sure you want to delete user {dialogState.selectedUser?.username}?
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onSubmit} color="error" variant="contained">
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  }
+  const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string[]>) => {
+    onFormChange({
+      target: {
+        name: 'roles',
+        value: event.target.value,
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+  };
 
   return (
-    <Dialog open onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={dialogState.isOpen}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+    >
+      <DialogTitle>
+      {dialogState.type === 'add' ? 'Add User' :
+         dialogState.type === 'edit' ? 'Edit User' :
+         'Confirm Delete'}
+      </DialogTitle>
+
       <form onSubmit={onSubmit}>
-        <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
         <DialogContent>
-          <TextField
-            margin="dense"
-            label="Username"
-            name="username"
-            value={formData.username}
-            onChange={onFormChange}
-            fullWidth
-            disabled={isEdit}
-          />
-          <TextField
-            margin="dense"
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={onFormChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={onFormChange}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={onFormChange}
-            fullWidth
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={formData.enabled}
-                onChange={onFormChange}
-                name="enabled"
-              />
-            }
-            label="Account Enabled"
-          />
+          {dialogState.type === 'delete' ? (
+            <DialogContentText>
+              Are you sure you want to delete {dialogState.selectedUser?.username}?
+              This action cannot be undone.
+            </DialogContentText>
+          ) : (
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <DialogContent>
+                <TextField
+                  margin="dense"
+                  label="Username"
+                  name="username"
+                  value={formData.username}
+                  onChange={onFormChange}
+                  fullWidth
+                />
+                <TextField
+                  margin="dense"
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={onFormChange}
+                  fullWidth
+                />
+                <TextField
+                  margin="dense"
+                  label="First Name"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={onFormChange}
+                  fullWidth
+                />
+                <TextField
+                  margin="dense"
+                  label="Last Name"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={onFormChange}
+                  fullWidth
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={formData.enabled}
+                      onChange={onFormChange}
+                      name="enabled"
+                    />
+                  }
+                  label="Account Enabled"
+                />
+              </DialogContent>
+
+              <FormControl fullWidth margin="dense">
+                <InputLabel>Roles</InputLabel>
+                <Select
+                  multiple
+                  value={formData.roles || []}
+                  onChange={handleRoleChange}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {(selected as string[]).map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                >
+                  {AVAILABLE_ROLES.map((role) => (
+                    <MenuItem key={role} value={role}>
+                      {role}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          )}
         </DialogContent>
+
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button type="submit" variant="contained" color="primary">
-            {isEdit ? 'Save' : 'Add'}
-          </Button>
+          {dialogState.type === 'delete' ? (
+            <Button type="submit" color="error" variant="contained">
+              Delete
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+            >
+              {dialogState.type === 'add' ? 'Add' : 'Update'}
+            </Button>
+          )}
         </DialogActions>
       </form>
     </Dialog>
