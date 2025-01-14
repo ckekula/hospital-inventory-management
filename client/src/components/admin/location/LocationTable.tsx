@@ -22,8 +22,7 @@ const LocationTable: React.FC<LocationTableProps> = ({
       flex: 1,
       minWidth: 200,
       renderCell: (params: GridRenderCellParams) => {
-        console.log('Render cell params:', params);
-        return params.row?.unit?.name ?? 'N/A';
+        return params.row.unit.name ?? 'N/A';
       }
     },
     {

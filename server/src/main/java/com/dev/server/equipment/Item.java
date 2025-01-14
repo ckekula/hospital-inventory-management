@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 @Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
 

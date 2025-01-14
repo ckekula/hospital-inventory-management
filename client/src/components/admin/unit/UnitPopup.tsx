@@ -52,7 +52,6 @@ export const UnitPopup: React.FC<UnitPopupProps> = ({
               <TextField
                 name="head"
                 label="Head"
-                type="number"
                 value={formData.head}
                 onChange={onFormChange}
                 required

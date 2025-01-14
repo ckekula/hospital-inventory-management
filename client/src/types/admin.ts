@@ -1,5 +1,5 @@
 export interface Unit {
-    id: string;
+    id: number;
     name: string;
     head: string;
 }
@@ -30,7 +30,7 @@ export interface UnitPopupProps {
 }
 
 export interface Location {
-  id: string;
+  id: number;
   name: string;
   unit: Unit;
 }

@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @Table(name = "equipment")
 public class Equipment {
     @Id
-    @GeneratedValue
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
     private int quantity;
