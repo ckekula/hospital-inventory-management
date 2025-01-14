@@ -28,9 +28,9 @@ export const InventorySection: React.FC = () => {
     
     const numericFormData = {
       name: formData.name,
-      quantity: formData.type === 'Bulk' ? parseInt(formData.quantity || '0') : 0,
+      quantity: 0,
       minStock: parseInt(formData.minStock),
-      type: formData.type || 'Individual'
+      type: formData.type
     };
   
     try {

@@ -8,9 +8,12 @@ import {
   Button,
   TextField,
   Box,
-  ToggleButton,
-  ToggleButtonGroup,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
 } from '@mui/material';
 import { InventoryPopupProps } from '@/types/inventory';
 
@@ -21,15 +24,10 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
   onSubmit,
   onFormChange,
 }) => {
-  const handleTypeChange = (
-    _event: React.MouseEvent<HTMLElement>,
-    newType: 'Individual' | 'Bulk'
-  ) => {
-    if (newType !== null) {
-      onFormChange({
-        target: { name: 'type', value: newType }
-      } as React.ChangeEvent<HTMLInputElement>);
-    }
+  const handleTypeChange = (event: SelectChangeEvent<'Individual' | 'Bulk'>) => {
+    onFormChange({
+      target: { name: 'type', value: event.target.value as 'Individual' | 'Bulk' }
+    } as React.ChangeEvent<HTMLInputElement>);
   };
 
   return (
@@ -64,20 +62,19 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
               />
               
               {dialogState.type === 'add' ? (
-                <ToggleButtonGroup
-                  value={formData.type || 'Individual'}
-                  exclusive
-                  onChange={handleTypeChange}
-                  aria-label="equipment type"
-                  fullWidth
-                >
-                  <ToggleButton value="Individual">
-                    Individual
-                  </ToggleButton>
-                  <ToggleButton value="Bulk">
-                    Bulk
-                  </ToggleButton>
-                </ToggleButtonGroup>
+                <FormControl fullWidth>
+                  <InputLabel id="type-select-label">Type</InputLabel>
+                  <Select
+                    labelId="type-select-label"
+                    id="type-select"
+                    value={formData.type}
+                    label="Type"
+                    onChange={handleTypeChange}
+                  >
+                    <MenuItem value="Individual">Individual</MenuItem>
+                    <MenuItem value="Bulk">Bulk</MenuItem>
+                  </Select>
+                </FormControl>
               ) : (
                 <Box sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 1 }}>
                   <Typography variant="body2" color="textSecondary">
@@ -85,18 +82,7 @@ export const InventoryPopup: React.FC<InventoryPopupProps> = ({
                   </Typography>
                 </Box>
               )}
-
-              {formData.type === 'Bulk' && (
-                <TextField
-                  name="quantity"
-                  label="Quantity"
-                  type="number"
-                  value={formData.quantity || '0'}
-                  onChange={onFormChange}
-                  fullWidth
-                />
-              )}
-
+              
               <TextField
                 name="minStock"
                 label="Minimum Stock"

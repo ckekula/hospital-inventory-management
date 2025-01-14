@@ -14,7 +14,7 @@ export const useInventoryForm = () => {
     name: "",
     minStock: "",
     type: "Individual",
-    quantity: "0"
+    quantity: 0
   });
 
   const handleDialogOpen = (type: PopupState['type'], equipment: Equipment | null = null) => {
@@ -28,15 +28,15 @@ export const useInventoryForm = () => {
       setFormData({
         name: equipment.name,
         minStock: equipment.minStock.toString(),
-        type: equipment.type || 'Individual',
-        quantity: equipment.quantity?.toString() || '0'
+        type: equipment.type,
+        quantity: 0
       });
     } else {
       setFormData({
         name: "",
         minStock: "",
         type: "Individual",
-        quantity: "0"
+        quantity: 0
       });
     }
   };
@@ -51,7 +51,7 @@ export const useInventoryForm = () => {
       name: "",
       minStock: "",
       type: "Individual",
-      quantity: "0"
+      quantity: 0
     });
   };
 
