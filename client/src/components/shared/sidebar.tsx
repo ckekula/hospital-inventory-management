@@ -12,7 +12,6 @@ import {
   SlidersHorizontal,
   User,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -81,13 +80,13 @@ const Sidebar = () => {
           isSidebarCollapsed ? "px-5" : "px-8"
         }`}
       >
-        <Image
+        {/* <Image
           src="/images/logo.png"
           alt="logo"
           width={27}
           height={27}
           className="rounded w-8"
-        />
+        /> */}
         <h1
           className={`${
             isSidebarCollapsed ? "hidden" : "block"
@@ -119,9 +118,9 @@ const Sidebar = () => {
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href="/products"
+          href="/items"
           icon={Clipboard}
-          label="Products"
+          label="Items"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
@@ -131,22 +130,22 @@ const Sidebar = () => {
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href="/settings"
-          icon={SlidersHorizontal}
-          label="Settings"
-          isCollapsed={isSidebarCollapsed}
-        />
-        <SidebarLink
           href="/expenses"
           icon={CircleDollarSign}
           label="Expenses"
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href="/admin"
+          icon={SlidersHorizontal}
+          label="Admin"
           isCollapsed={isSidebarCollapsed}
         />
       </div>
 
       {/* FOOTER */}
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
-        <p className="text-center text-xs text-gray-500">&copy; 2024 Edstock</p>
+        <p className="text-center text-xs text-gray-500">&copy; 2024 HIMS</p>
       </div>
     </div>
   );

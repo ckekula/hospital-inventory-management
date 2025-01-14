@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: hims
+      POSTGRES_DB: hospital-inventory
     volumes:
       - postgres:/data/postgres
     ports:
@@ -14,12 +14,23 @@ services:
     networks:
       - spring-demo
     restart: unless-stopped
-  mail-dev:
-    container_name: mail-dev-hims
-    image: maildev/maildev
+  keycloak:
+    container_name: keycloak-hims
+    image: quay.io/keycloak/keycloak:26.0.7
     ports:
-      - 1080:1080
-      - 1025:1025
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      - start-dev
+      - --import-realm
+    volumes:
+      - ./keycloak/realms:/opt/keycloak/data/import
+    depends_on:
+      - postgres
+    networks:
+      - spring-demo
 networks:
   spring-demo:
     driver: bridge
