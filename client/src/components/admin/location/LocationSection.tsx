@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
 import { useAddLocationMutation, useDeleteLocationMutation, useGetLocationsQuery } from "@/state/locationApi";
-import { LocationForm } from "./useLocationForm";
+import { useLocationForm } from "./useLocationForm";
 import LocationTable from "./LocationTable";
 import { LocationPopup } from "./LocationPopup";
 import { AddLocationRequest, Location } from "@/types/admin";
@@ -18,7 +18,7 @@ export const LocationSection: React.FC = () => {
     handleDialogOpen,
     handleDialogClose,
     handleFormChange
-  } = LocationForm();
+  } = useLocationForm();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

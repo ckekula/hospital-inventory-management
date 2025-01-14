@@ -32,12 +32,12 @@ export interface UnitPopupProps {
 export interface Location {
   id: number;
   name: string;
-  unit: Unit;
+  unit: Unit | null;
 }
 
 export interface LocationFormData {
   name: string;
-  unit: string; // Store the unit ID
+  unit: number | null; // Store the unit ID
 }
 
 export interface LocationTableProps {
@@ -71,6 +71,6 @@ export interface LocationPopupProps {
 export interface AddLocationRequest {
   name: string;
   unit: {
-    id: string;
+    id: number | null;
   };
 }

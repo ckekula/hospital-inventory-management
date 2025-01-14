@@ -5,7 +5,7 @@ import { useAddUnitMutation, useDeleteUnitMutation, useGetUnitsQuery, useUpdateU
 import { Unit } from "@/types/admin";
 import UnitTable from "./UnitTable";
 import { UnitPopup } from "./UnitPopup";
-import { UnitForm } from "./useUnitForm";
+import { useUnitForm } from "./useUnitForm";
 
 export const UnitSection: React.FC = () => {
   const { data: unit = [] } = useGetUnitsQuery();
@@ -19,7 +19,7 @@ export const UnitSection: React.FC = () => {
     handleDialogOpen,
     handleDialogClose,
     handleFormChange
-  } = UnitForm();
+  } = useUnitForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

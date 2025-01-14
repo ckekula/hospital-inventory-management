@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { LocationFormData, LocationPopupState, Location, FormChangeEvent } from "@/types/admin";
 
-export const LocationForm = () => {
+export const useLocationForm = () => {
   const [dialogState, setDialogState] = useState<LocationPopupState>({
     type: null,
     isOpen: false,
@@ -12,7 +12,7 @@ export const LocationForm = () => {
 
   const [formData, setFormData] = useState<LocationFormData>({
     name: "",
-    unit: ""
+    unit: null
   });
 
   const handleDialogOpen = (type: LocationPopupState['type'], location: Location | null = null) => {
@@ -25,12 +25,12 @@ export const LocationForm = () => {
     if (location) {
       setFormData({
         name: location.name,
-        unit: location.unit?.id || ""
+        unit: location.unit?.id || null
       });
     } else {
       setFormData({
         name: "",
-        unit: ""
+        unit: null
       });
     }
   };
@@ -43,7 +43,7 @@ export const LocationForm = () => {
     });
     setFormData({
       name: "",
-      unit: ""
+      unit: null
     });
   };
 

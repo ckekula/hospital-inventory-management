@@ -15,7 +15,7 @@ export const equipmentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Equipment"],
     }),
-    updateEquipment: build.mutation<Equipment, { id: string; data: Partial<Equipment> }>({
+    updateEquipment: build.mutation<Equipment, { id: number; data: Partial<Equipment> }>({
       query: ({ id, data }) => ({
         url: `/equipment/${id}`,
         method: "PUT",
@@ -23,7 +23,7 @@ export const equipmentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Equipment"],
     }),
-    deleteEquipment: build.mutation<void, string>({
+    deleteEquipment: build.mutation<void, number>({
       query: (id) => ({
         url: `/equipment/${id}`,
         method: "DELETE",

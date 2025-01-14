@@ -15,7 +15,7 @@ export const locationApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Location"],
     }),
-    deleteLocation: build.mutation<void, string>({
+    deleteLocation: build.mutation<void, number>({
       query: (id) => ({
         url: `/location/${id}`,
         method: "DELETE",

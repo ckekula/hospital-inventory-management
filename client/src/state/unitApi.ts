@@ -15,7 +15,7 @@ export const unitApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Unit"],
     }),
-    updateUnit: build.mutation<Unit, { id: string; data: Partial<Unit> }>({
+    updateUnit: build.mutation<Unit, { id: number; data: Partial<Unit> }>({
       query: ({ id, data }) => ({
         url: `/unit/${id}`,
         method: "PUT",
@@ -23,7 +23,7 @@ export const unitApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Unit"],
     }),
-    deleteUnit: build.mutation<void, string>({
+    deleteUnit: build.mutation<void, number>({
       query: (id) => ({
         url: `/unit/${id}`,
         method: "DELETE",

@@ -63,7 +63,7 @@ export const LocationPopup: React.FC<LocationPopupProps> = ({
                 <Select
                   labelId="unit-select-label"
                   name="unit"
-                  value={formData.unit}
+                  value={formData.unit?.toString()}
                   onChange={handleUnitChange}
                   required
                   disabled={isLoading}

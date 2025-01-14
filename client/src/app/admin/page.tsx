@@ -4,7 +4,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import Header from "@/components/shared/header";
 import { UnitSection } from "@/components/admin/unit/UnitSection";
-import { Loading, Error } from "@/components/admin/LoadingAndError";
+import { Loading, Error } from "@/components/shared/LoadingAndError";
 import { useGetUnitsQuery } from "@/state/unitApi";
 import { useGetLocationsQuery } from "@/state/locationApi";
 import { LocationSection } from "@/components/admin/location/LocationSection";

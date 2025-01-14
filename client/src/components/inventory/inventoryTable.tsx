@@ -4,7 +4,7 @@ import { IconButton, Box, Paper } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { InventoryTableProps } from '@/types/inventory';
 
-export const InventoryTable: React.FC<InventoryTableProps> = ({
+const InventoryTable: React.FC<InventoryTableProps> = ({
   equipment,
   onEdit,
   onDelete,
@@ -87,3 +87,5 @@ export const InventoryTable: React.FC<InventoryTableProps> = ({
     </Paper>
   );
 };
+
+export default InventoryTable;
