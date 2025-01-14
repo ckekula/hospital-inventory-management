@@ -8,6 +8,7 @@ import { Loading, Error } from "@/components/shared/LoadingAndError";
 import { useGetUnitsQuery } from "@/state/unitApi";
 import { useGetLocationsQuery } from "@/state/locationApi";
 import { LocationSection } from "@/components/admin/location/LocationSection";
+import { UserSection } from "@/components/admin/user/UserSection";
 
 const Admin: React.FC = () => {
   const { isError: isUnitsError, isLoading: isUnitsLoading } = useGetUnitsQuery();
@@ -28,6 +29,11 @@ const Admin: React.FC = () => {
       <Box sx={{ p: 3 }}>
         <Header name="Locations" />
         <LocationSection />
+      </Box>
+
+      <Box sx={{ p: 3 }}>
+        <Header name="Users" />
+        <UserSection />
       </Box>
     </div>
   );

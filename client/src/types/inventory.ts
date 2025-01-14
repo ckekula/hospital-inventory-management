@@ -11,7 +11,7 @@ export interface FormData {
   name: string;
   minStock: string;
   type: 'Individual' | 'Bulk';
-  quantity: string;
+  quantity: number;
 }
 
 export type PopupType = 'add' | 'edit' | 'delete' | null;

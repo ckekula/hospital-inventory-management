@@ -74,3 +74,28 @@ export interface AddLocationRequest {
     id: number | null;
   };
 }
+
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  enabled: boolean;
+  createdTimestamp: number;
+}
+
+
+export interface UserFormData {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  enabled: boolean;
+}
+
+export interface UserDialogState {
+  type: 'edit' | 'delete' | null;
+  isOpen: boolean;
+  selectedUser: User | null;
+}

@@ -10,13 +10,14 @@ import type { RootState, AppDispatch } from "@/utils/store";
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+// Create persistor outside component to avoid recreation on renders
+const persistor = persistStore(store);
+
 export default function StoreProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const persistor = persistStore(store);
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
