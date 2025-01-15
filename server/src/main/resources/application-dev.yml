@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hims
-    username: username
-    password: password
+    username: postgres
+    password: 200109803121
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -12,7 +12,7 @@ spring:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgresSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: localhost
     port: 1025
@@ -25,13 +25,14 @@ spring:
         auth: true
         starttls:
           enabled: true
-        connection timeout: 5000
+        connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-application:
   security:
-    jwt:
-      secret-key: QtIYVY1tVXdyCpwUx9YY8a1d2va2taDp
-      expiration: 8640000
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/hospital-inventory"
+application:
 server:
   port: 8088
