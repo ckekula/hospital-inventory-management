@@ -14,9 +14,7 @@ import {
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { baseApi } from "@/state/baseApi";
 import { equipmentApi } from "@/state/equipmentApi";
-import { itemApi } from "@/state/itemApi";
 import { unitApi } from "@/state/unitApi";
-import { locationApi } from "@/state/locationApi";
 
 const createNoopStorage = () => {
   return {
@@ -60,9 +58,7 @@ export const store = configureStore({
     }).concat(
       baseApi.middleware,
       equipmentApi.middleware,
-      itemApi.middleware,
       unitApi.middleware,
-      locationApi.middleware
     ),
 });
 

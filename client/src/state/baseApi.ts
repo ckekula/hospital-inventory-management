@@ -5,6 +5,6 @@ export const baseApi = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
   }),
   reducerPath: "api",
-  tagTypes: ["Equipment", "Item", "Unit", "Location"],
+  tagTypes: ["Equipment", "Unit"],
   endpoints: () => ({}),
 });
