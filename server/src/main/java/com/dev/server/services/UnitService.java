@@ -35,16 +35,16 @@ public class UnitService {
     }
 
     // Update Unit head
-//    public Unit updateUnit(Integer id, Unit updatedUnit) {
-//        return unitRepository.findById(id)
-//                .map(unit -> {
-//                    User newHead = userRepository.findByName(updatedUnit.getName())
-//                            .orElseThrow(() -> new RuntimeException("User not found"));
-//                    unit.setHead(newHead);
-//                    return unitRepository.save(unit);
-//                })
-//                .orElseThrow(() -> new RuntimeException("Unit not found"));
-//    }
+    public Unit updateUnitHead(Integer unitId, Integer userId) {
+        Unit unit = unitRepository.findById(unitId)
+                .orElseThrow(() -> new RuntimeException("Unit not found with id: " + unitId));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+
+        unit.setHead(user);
+        return unitRepository.save(unit);
+    }
 
     // Delete a unit by ID
     public void deleteUnit(Integer id) {

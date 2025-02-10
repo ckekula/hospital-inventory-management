@@ -21,6 +21,7 @@ public class Unit {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @OneToOne
+    @JoinColumn(name = "head_id", nullable = false, unique = true)
     private User head;
 }

@@ -27,16 +27,27 @@ public class EquipmentService {
         return repository.save(equipment);
     }
 
-//    public Equipment updateEquipment(Integer id, Equipment updatedEquipment) {
-//        return repository.findById(id)
-//                .map(equipment -> {
-//                    equipment.setName(updatedEquipment.getName());
-//                    equipment.setQuantity(updatedEquipment.getQuantity());
-//                    equipment.setMinStock(updatedEquipment.getMinStock());
-//                    return repository.save(equipment);
-//                })
-//                .orElseThrow(() -> new RuntimeException("Equipment not found"));
-//    }
+    public Equipment updateEquipment(Integer id, Equipment updatedEquipment) {
+        return repository.findById(id)
+                .map(existingEquipment -> {
+                    existingEquipment.setName(updatedEquipment.getName());
+                    existingEquipment.setDeliveredDate(updatedEquipment.getDeliveredDate());
+                    existingEquipment.setBrand(updatedEquipment.getBrand());
+                    existingEquipment.setManufacturer(updatedEquipment.getManufacturer());
+                    existingEquipment.setModel(updatedEquipment.getModel());
+                    existingEquipment.setUnitPrice(updatedEquipment.getUnitPrice());
+                    existingEquipment.setReceivedVia(updatedEquipment.getReceivedVia());
+                    existingEquipment.setWarrantyPeriod(updatedEquipment.getWarrantyPeriod());
+                    existingEquipment.setInventoryNo(updatedEquipment.getInventoryNo());
+                    existingEquipment.setSerialNo(updatedEquipment.getSerialNo());
+                    existingEquipment.setAssignedUnit(updatedEquipment.getAssignedUnit());
+                    existingEquipment.setReceivedCondition(updatedEquipment.getReceivedCondition());
+                    existingEquipment.setStatus(updatedEquipment.getStatus());
+                    existingEquipment.setReceivingOfficer(updatedEquipment.getReceivingOfficer());
+                    return repository.save(existingEquipment);
+                })
+                .orElseThrow(() -> new RuntimeException("Equipment not found with ID: " + id));
+    }
 
     public void deleteEquipment(Integer id) {
         repository.deleteById(id);

@@ -36,14 +36,15 @@ public class UnitController {
     }
 
     // Update Unit Head
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Unit> updateUnit(@PathVariable Integer id, @RequestBody Unit updatedUnit) {
-//        try {
-//            return ResponseEntity.ok(service.updateUnit(id, updatedUnit));
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Unit> updateUnitHead(@PathVariable Integer unitId, @PathVariable Integer userId) {
+        try {
+            Unit updatedUnit = service.updateUnitHead(unitId, userId);
+            return ResponseEntity.ok(updatedUnit);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     // Delete a unit by ID
     @DeleteMapping("/{id}")

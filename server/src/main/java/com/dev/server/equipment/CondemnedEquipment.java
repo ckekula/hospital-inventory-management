@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "condemning_details")
-public class CondemningDetails {
+@Table(name = "condemned_equipment")
+public class CondemnedEquipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,5 +32,7 @@ public class CondemningDetails {
     @Column(columnDefinition = "TEXT")
     private String report;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User bme;
 }

@@ -32,14 +32,15 @@ public class EquipmentController {
         return service.createEquipment(equipment);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Equipment> updateEquipment(@PathVariable Integer id, @RequestBody Equipment updatedEquipment) {
-//        try {
-//            return ResponseEntity.ok(service.updateEquipment(id, updatedEquipment));
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Equipment> updateEquipment(@PathVariable Integer id, @RequestBody Equipment updatedEquipment) {
+        try {
+            Equipment equipment = service.updateEquipment(id, updatedEquipment);
+            return ResponseEntity.ok(equipment);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEquipment(@PathVariable Integer id) {

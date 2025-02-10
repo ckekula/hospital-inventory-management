@@ -36,8 +36,13 @@ public class Equipment {
     private String manufacturer;
     private String model;
     private String unitPrice;
+
+    @Column(nullable = false)
     private String receivedVia;
+
+    @Column(nullable = false)
     private String warrantyPeriod;
+
     private String inventoryNo;
     private String serialNo;
 
@@ -66,11 +71,10 @@ public class Equipment {
     private LocalDateTime lastModifiedDate;
 
     @OneToOne(mappedBy = "equipment", cascade = CascadeType.ALL)
-    private ReceivingDetails receivingDetails;
+    private ReceivedEquipment receivedEquipment;
 
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL)
     private List<Repair> repair;
-
 
     public enum Status {
         ACTIVE, IN_SERVICE, CONDEMNED

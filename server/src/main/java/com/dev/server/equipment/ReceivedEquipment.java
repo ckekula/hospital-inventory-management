@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "receiving_details")
-public class ReceivingDetails {
+@Table(name = "received_equipment")
+public class ReceivedEquipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,7 +37,7 @@ public class ReceivingDetails {
     private String companyFax;
     private LocalDate serviceCatalogReceivedDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "receiving_officer_id")
     private User receivingOfficer;
 }
