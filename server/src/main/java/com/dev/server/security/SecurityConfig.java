@@ -41,12 +41,6 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/webjars/**",
                                 "/swagger-ui.html",
-                                "/api/v1/graphql",
-                                "/api/v1/graphql/**",
-                                "/graphql",
-                                "/graphql/**",
-                                "/graphiql/**",
-                                "/playground/**",
                                 "/subscriptions/**")
                         .permitAll()
                         .anyRequest()
