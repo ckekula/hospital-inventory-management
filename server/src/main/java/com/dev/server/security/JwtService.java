@@ -37,16 +37,19 @@ public class JwtService {
 
     public String generateToken(
             Map<String, Object> extraClaims,
-            UserDetails userDetails) {
+            UserDetails userDetails
+    ) {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     private String buildToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails,
-            long expiration) {
+            long expiration
+    ) {
         var authorities = userDetails.getAuthorities()
-                .stream().map(GrantedAuthority::getAuthority)
+                .stream().
+                map(GrantedAuthority::getAuthority)
                 .toList();
         return Jwts
                 .builder()

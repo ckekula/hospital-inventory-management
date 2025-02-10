@@ -27,16 +27,16 @@ public class EquipmentService {
         return repository.save(equipment);
     }
 
-    public Equipment updateEquipment(Integer id, Equipment updatedEquipment) {
-        return repository.findById(id)
-                .map(equipment -> {
-                    equipment.setName(updatedEquipment.getName());
-                    equipment.setQuantity(updatedEquipment.getQuantity());
-                    equipment.setMinStock(updatedEquipment.getMinStock());
-                    return repository.save(equipment);
-                })
-                .orElseThrow(() -> new RuntimeException("Equipment not found"));
-    }
+//    public Equipment updateEquipment(Integer id, Equipment updatedEquipment) {
+//        return repository.findById(id)
+//                .map(equipment -> {
+//                    equipment.setName(updatedEquipment.getName());
+//                    equipment.setQuantity(updatedEquipment.getQuantity());
+//                    equipment.setMinStock(updatedEquipment.getMinStock());
+//                    return repository.save(equipment);
+//                })
+//                .orElseThrow(() -> new RuntimeException("Equipment not found"));
+//    }
 
     public void deleteEquipment(Integer id) {
         repository.deleteById(id);

@@ -1,5 +1,6 @@
-package com.dev.server.location;
+package com.dev.server.unit;
 
+import com.dev.server.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,5 +22,5 @@ public class Unit {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String head;
+    private User head;
 }
