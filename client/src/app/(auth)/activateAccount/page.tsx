@@ -14,7 +14,6 @@ const ActivateAccountPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCodeChange = async (value: string) => {
-    // Only proceed if we have all 6 digits
     if (value.length === 6) {
       setIsLoading(true);
       try {
@@ -23,6 +22,7 @@ const ActivateAccountPage = () => {
         setSubmitted(true);
         setIsOkay(true);
       } catch (error) {
+        console.error("Activation error:", error);
         setMessage('Token has been expired or invalid');
         setSubmitted(true);
         setIsOkay(false);

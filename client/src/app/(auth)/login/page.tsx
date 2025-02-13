@@ -49,8 +49,10 @@ const LoginPage = () => {
               label="Email"
               value={loginData.email}
               onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-              InputProps={{
-                startAdornment: <Mail className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input : {
+                  startAdornment: <Mail className="mr-2 h-5 w-5 text-gray-500" />,  
+                }
               }}
             />
 
@@ -61,8 +63,10 @@ const LoginPage = () => {
               label="Password"
               value={loginData.password}
               onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-              InputProps={{
-                startAdornment: <Lock className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input: {
+                  startAdornment: <Lock className="mr-2 h-5 w-5 text-gray-500" />,
+                }
               }}
             />
           </div>

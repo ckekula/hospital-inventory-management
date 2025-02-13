@@ -24,7 +24,7 @@ const RegisterPage = () => {
     e.preventDefault();
     const result = await dispatch(register(registerData));
     if (register.fulfilled.match(result)) {
-      router.push('/activate-account');
+      router.push('/activateAccount');
     }
   };
 
@@ -50,8 +50,10 @@ const RegisterPage = () => {
               label="First Name"
               value={registerData.firstname}
               onChange={(e) => setRegisterData({ ...registerData, firstname: e.target.value })}
-              InputProps={{
-                startAdornment: <User className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input: {
+                  startAdornment: <User className="mr-2 h-5 w-5 text-gray-500" />,
+                },
               }}
             />
 
@@ -61,8 +63,10 @@ const RegisterPage = () => {
               label="Last Name"
               value={registerData.lastname}
               onChange={(e) => setRegisterData({ ...registerData, lastname: e.target.value })}
-              InputProps={{
-                startAdornment: <User className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input: {
+                  startAdornment: <User className="mr-2 h-5 w-5 text-gray-500" />,  
+                },
               }}
             />
 
@@ -73,8 +77,10 @@ const RegisterPage = () => {
               label="Email"
               value={registerData.email}
               onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
-              InputProps={{
-                startAdornment: <Mail className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input: {
+                  startAdornment: <Mail className="mr-2 h-5 w-5 text-gray-500" />, 
+                }
               }}
             />
 
@@ -85,8 +91,10 @@ const RegisterPage = () => {
               label="Password"
               value={registerData.password}
               onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
-              InputProps={{
-                startAdornment: <Lock className="mr-2 h-5 w-5 text-gray-500" />,
+              slotProps={{
+                input: {
+                  startAdornment: <Lock className="mr-2 h-5 w-5 text-gray-500" />,
+                }
               }}
             />
           </div>

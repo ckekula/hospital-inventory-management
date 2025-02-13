@@ -1,29 +1,25 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppSelector } from '../redux';
+"use client";
+
+import { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useAppSelector } from "../redux";
 
 const AuthMiddleware = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { token } = useAppSelector((state) => state.auth);
-  const isLoginPage = window.location.pathname === '/login';
+  const isLoginPage = pathname === "/login";
 
   useEffect(() => {
     if (!token && !isLoginPage) {
-      router.push('/login');
+      router.replace("/login");
     } else if (token && isLoginPage) {
-      router.push('/');
+      router.replace("/");
     }
   }, [token, isLoginPage, router]);
 
-  // Show nothing while checking authentication
-  if (!token && !isLoginPage) {
-    return null;
-  }
-
-  // Show nothing on login page if already authenticated
-  if (token && isLoginPage) {
-    return null;
-  }
+  if (!token && !isLoginPage) return null;
+  if (token && isLoginPage) return null;
 
   return <>{children}</>;
 };
