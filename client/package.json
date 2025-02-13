@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-api": "npx openapi-typescript-codegen --input openapi/openapi.json --output src/api --client axios"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -39,6 +40,7 @@
     "@types/uuid": "^10.0.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
+    "openapi-typescript-codegen": "^0.29.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tw-colors": "^3.3.2",
