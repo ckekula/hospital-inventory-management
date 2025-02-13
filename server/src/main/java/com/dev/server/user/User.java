@@ -14,13 +14,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
 @Setter
@@ -38,7 +37,6 @@ public class User implements UserDetails, Principal {
 
     private String firstname;
     private String lastname;
-    private LocalDate dateOfBirth;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -47,7 +45,7 @@ public class User implements UserDetails, Principal {
     private boolean accountLocked;
     private boolean enabled;
 
-    @ManyToMany(fetch = EAGER)
+    @ManyToMany(fetch = LAZY)
     private List<Role> roles;
 
     @CreatedDate

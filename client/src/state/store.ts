@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import globalReducer from "@/state";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import authReducer from "@/state/authSlice";
 import {
   persistReducer,
   FLUSH,
@@ -12,9 +12,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-import { baseApi } from "@/state/baseApi";
-import { equipmentApi } from "@/state/equipmentApi";
-import { unitApi } from "@/state/unitApi";
 
 const createNoopStorage = () => {
   return {
@@ -38,12 +35,12 @@ const storage =
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["global"],
+  whitelist: ["global", "auth"],
 };
 
 const rootReducer = combineReducers({
   global: globalReducer,
-  [baseApi.reducerPath]: baseApi.reducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -55,14 +52,8 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(
-      baseApi.middleware,
-      equipmentApi.middleware,
-      unitApi.middleware,
-    ),
+    }),
 });
-
-setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
